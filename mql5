@@ -1,0 +1,47 @@
+
+// Desperado Dealer - Forex Trading Robot
+// Developer's Site: forexroboteasy.com
+// Development: Forex Robot Easy Team
+
+// Include required libraries
+#include <Trade\Trade.mqh>
+#include <Expert\Expert.mqh>
+
+// Define the currency pairs
+string[] currencyPairs = {'CADJPY', 'EURNZD', 'GBPCHF', 'CADCHF', 'NZDCHF', 'AUDNZD', 'EURCHF'};
+
+// Define the main function
+int OnStart()
+{
+   // Initialize the trade and expert objects
+   CTrade trade;
+   CExpert expert;
+
+   // Set up the price tracking algorithm
+   expert.SetPriceTrackingAlgorithm('Unique');
+
+   // Add the currency pairs to the software
+   for (int i = 0; i < currencyPairs.Length(); i++)
+   {
+      expert.AddCurrencyPair(currencyPairs[i]);
+   }
+
+   // Allow traders to customize the software
+   expert.AllowCustomization(true);
+
+   // Perform forex market analysis
+   expert.AnalyzeMarket();
+
+   // Check for preferred currency pairs
+   if (expert.PreferredCurrencyPairsExist())
+   {
+      // Implement band trend-based expert advisor
+      expert.ImplementBandTrendExpertAdvisor();
+
+      // Start trading
+      trade.StartTrading();
+   }
+
+   // Return a logical conclusion
+   return 0;
+}
